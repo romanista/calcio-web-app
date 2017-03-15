@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en" ng-app="calcioApp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Calcio</title>
+    <base href="/calcio/">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/static/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/static/css/calcio.css}"/>
+    <script th:src="@{/static/js/angular.js}"></script>
+    <script th:src="@{/static/js/angular-ui-router.js}"></script>
+    <script th:src="@{/static/js/localforage.min.js}"></script>
+    <script th:src="@{/static/js/ngStorage.min.js}"></script>
+    <script th:src="@{/static/js/ui-bootstrap-tpls.js}"></script>
+    <script th:src="@{/static/js/calcio-app.js}"></script>
+    <script th:src="@{/static/js/team/team-controller.js}"></script>
+    <script th:src="@{/static/js/team/team-service.js}"></script>
+</head>
+<body>
+<h2>Welcome to Calcio!</h2>
+<div class="row">
+    <ul>
+        <li><a ui-sref="team">Teams</a></li>
+    </ul>
+</div>
+<div ui-view>
+    <uib-tabset>
+        <uib-tab heading="News">
+            <div>
+                TBD
+            </div>
+            <!--div th:replace="fragments/mapping :: mapping"></div-->
+        </uib-tab>
+        <uib-tab heading="Schedules">
+            <div>
+                TBD
+            </div>
+            <!--div th:replace="fragments/activity :: activity"></div-->
+        </uib-tab>
+        <uib-tab heading="Standings">
+            <div>
+                TBD
+            </div>
+            <!--<div th:replace="fragments/standings :: standings"></div>-->
+        </uib-tab>
+    </uib-tabset>
+</div>
+</body>
+</html>

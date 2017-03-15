@@ -1,0 +1,47 @@
+group 'com.rdiachuk.edu'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+war {
+    //baseName = '/'
+    //archiveName = "${project.name}.war"
+    archiveName = "calcio.war"
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    springFrameworkVersion = '4.3.5.RELEASE'
+    springFrameworkDataRestVersion = '2.5.6.RELEASE'
+    springFrameworkDataJpaVersion = '1.10.6.RELEASE'
+}
+
+dependencies {
+    compile group: 'org.springframework', name: 'spring-context', version: springFrameworkVersion
+    compile group: 'org.springframework', name: 'spring-orm', version: springFrameworkVersion
+    compile group: 'org.springframework', name: 'spring-web', version: springFrameworkVersion
+    compile group: 'org.springframework', name: 'spring-webmvc', version: springFrameworkVersion
+    compile group: 'org.springframework', name: 'spring-tx', version: springFrameworkVersion
+    compile group: 'org.springframework.data', name: 'spring-data-rest-webmvc', version: springFrameworkDataRestVersion
+    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: springFrameworkDataJpaVersion
+
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.0.11.Final'
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.0.11.Final'
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.2.4.Final'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.40'
+
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+
+    compile group: 'org.thymeleaf', name: 'thymeleaf-spring4', version: '3.0.3.RELEASE'
+
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.1'
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
