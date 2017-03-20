@@ -1,5 +1,7 @@
 package com.rdiachuk.edu.calcio.persistence.entity;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -13,6 +15,7 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Column(nullable = false)
     private String firstName;
 
@@ -67,7 +70,26 @@ public class Player {
         this.position = position;
     }
 
-    public static enum Position {
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public enum Position {
         GOALKEEPER, DEFENDER, MIDFIELDER, STRIKER
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birth=" + birth +
+                ", position=" + position +
+                '}';
     }
 }

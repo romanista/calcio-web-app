@@ -5,7 +5,8 @@ package com.rdiachuk.edu.calcio.util;
  */
 public enum CalcioEntity {
 
-    TEAM("Team");
+    TEAM("Team"),
+    PLAYER("Player");
 
     private final String value;
 

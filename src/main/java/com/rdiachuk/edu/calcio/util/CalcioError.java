@@ -25,7 +25,10 @@ public enum CalcioError {
     /**
      * arg - failure reason
      */
-    DELETE_FAILURE(5, "Failed to delete. Reason: %s");
+    DELETE_FAILURE(5, "Failed to delete. Reason: %s"),
+
+    DUPLICATE_PLAYER(6, "Player already exists."),
+    PLAYER_NOT_FOUND(7, "Player not found.");
 
     private final int code;
     private final String description;
