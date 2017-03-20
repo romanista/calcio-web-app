@@ -35,6 +35,7 @@ public class TeamController {
         try {
             List<Team> teams = teamService.findAllTeams();
             if (teams.isEmpty()) {
+                // TODO: consider to return empty list of teams.
                 return new ResponseEntity(HttpStatus.NO_CONTENT);
             }
             logger.info("Returned {} Teams", teams.size());
@@ -113,9 +114,9 @@ public class TeamController {
     public ResponseEntity<?> deleteTeam(@PathVariable("id") long id) {
         logger.info("Fetching & Deleting Team with id {}", id);
         try {
-            Team team = teamService.findById(id);
-            if (team == null) {
-                String errorMsg = String.format(CalcioError.DELETE_FAILURE.toString(), CalcioEntity.TEAM, CalcioError.TEAM_NOT_FOUND);
+            Optional<Team> teamOpt = Optional.ofNullable(teamService.findById(id));
+            if (!teamOpt.isPresent()) {
+                String errorMsg = String.format(CalcioError.DELETE_FAILURE.toString(), CalcioError.TEAM_NOT_FOUND);
                 logger.error(errorMsg);
                 return new ResponseEntity(errorMsg, HttpStatus.NOT_FOUND);
             }
@@ -123,7 +124,7 @@ public class TeamController {
             logger.info("Deleted successfully!");
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            String errorMsg = String.format(CalcioError.DELETE_FAILURE.toString(), CalcioEntity.TEAM, e.getMessage());
+            String errorMsg = String.format(CalcioError.DELETE_FAILURE.toString(), e.getMessage());
             logger.error(errorMsg, e);
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -137,7 +138,7 @@ public class TeamController {
             logger.info("Deleted successfully!");
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            String errorMsg = String.format(CalcioError.DELETE_FAILURE.toString(), CalcioEntity.TEAM, e.getMessage());
+            String errorMsg = String.format(CalcioError.DELETE_FAILURE.toString(), e.getMessage());
             logger.error(errorMsg, e);
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
