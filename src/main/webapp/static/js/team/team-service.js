@@ -4,6 +4,7 @@ calcioApp.factory('TeamService', ['$localStorage', '$http', '$q', '$log', 'urls'
         var factory = {
             loadAllTeams: loadAllTeams,
             getAllTeams: getAllTeams,
+            loadTeam: loadTeam,
             getTeam: getTeam,
             createTeam: createTeam,
             updateTeam: updateTeam,
@@ -33,21 +34,26 @@ calcioApp.factory('TeamService', ['$localStorage', '$http', '$q', '$log', 'urls'
             return $localStorage.teams;
         }
 
-        function getTeam(id) {
-            $log.log('Fetching Team with id :' + id);
+        function loadTeam(id) {
+            $log.log('Fetching Team with id: ' + id);
             var deferred = $q.defer();
             $http.get(urls.TEAM_SERVICE_API + id)
                 .then(
                     function (response) {
-                        $log.log('Fetched successfully Team with id :' + id);
+                        $log.log('Fetched successfully Team with id: ' + id);
+                        $localStorage.team = response.data;
                         deferred.resolve(response.data);
                     },
                     function (errResponse) {
-                        $log.error('Error while loading Team with id :' + id);
+                        $log.error('Error while loading Team with id: ' + id);
                         deferred.reject(errResponse);
                     }
                 );
             return deferred.promise;
+        }
+
+        function getTeam() {
+            return $localStorage.team;
         }
 
         function createTeam(team) {
@@ -60,7 +66,7 @@ calcioApp.factory('TeamService', ['$localStorage', '$http', '$q', '$log', 'urls'
                         deferred.resolve(response.data);
                     },
                     function (errResponse) {
-                        $log.error('Error while creating Team : ' + errResponse.data);
+                        $log.error('Error while creating Team: ' + errResponse.data);
                         deferred.reject(errResponse);
                     }
                 );
@@ -68,7 +74,7 @@ calcioApp.factory('TeamService', ['$localStorage', '$http', '$q', '$log', 'urls'
         }
 
         function updateTeam(team, id) {
-            $log.log('Updating Team with id ' + id);
+            $log.log('Updating Team with id: ' + id);
             var deferred = $q.defer();
             $http.put(urls.TEAM_SERVICE_API + id, team)
                 .then(
@@ -77,7 +83,7 @@ calcioApp.factory('TeamService', ['$localStorage', '$http', '$q', '$log', 'urls'
                         deferred.resolve(response.data);
                     },
                     function (errResponse) {
-                        $log.error('Error while updating Team with id :' + id);
+                        $log.error('Error while updating Team with id: ' + id);
                         deferred.reject(errResponse);
                     }
                 );
@@ -85,7 +91,7 @@ calcioApp.factory('TeamService', ['$localStorage', '$http', '$q', '$log', 'urls'
         }
 
         function removeTeam(id) {
-            $log.log('Removing Team with id ' + id);
+            $log.log('Removing Team with id: ' + id);
             var deferred = $q.defer();
             $http.delete(urls.TEAM_SERVICE_API + id)
                 .then(
@@ -94,7 +100,7 @@ calcioApp.factory('TeamService', ['$localStorage', '$http', '$q', '$log', 'urls'
                         deferred.resolve(response.data);
                     },
                     function (errResponse) {
-                        $log.error('Error while removing Team with id :' + id);
+                        $log.error('Error while removing Team with id: ' + id);
                         deferred.reject(errResponse);
                     }
                 );

@@ -7,6 +7,7 @@ calcioApp.controller('TeamController', ['TeamService', '$scope', '$log',
 
         self.submit = submit;
         self.getAllTeams = getAllTeams;
+        self.getTeam = getTeam;
         self.createTeam = createTeam;
         self.updateTeam = updateTeam;
         self.removeTeam = removeTeam;
@@ -92,10 +93,14 @@ calcioApp.controller('TeamController', ['TeamService', '$scope', '$log',
             return TeamService.getAllTeams();
         }
 
+        function getTeam() {
+            return TeamService.getTeam();
+        }
+
         function editTeam(id) {
             self.successMessage = '';
             self.errorMessage = '';
-            TeamService.getTeam(id).then(
+            TeamService.loadTeam(id).then(
                 function (team) {
                     self.team = team;
                 },

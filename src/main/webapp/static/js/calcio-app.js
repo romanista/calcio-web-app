@@ -9,14 +9,27 @@ calcioApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
     function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
             .state('team', {
+                abstract: true,
                 url: '/team',
-                templateUrl: 'fragments/team',
+                template: '<ui-view/>'
+            })
+            .state('team.list', {
+                url: '/',
+                templateUrl: 'fragments/team-list',
                 controller: 'TeamController as teamCtrl',
                 resolve: {
-                    teams: function ($q, TeamService) {
-                        var deferred = $q.defer();
-                        TeamService.loadAllTeams().then(deferred.resolve, deferred.resolve);
-                        return deferred.promise;
+                    teams: function (TeamService) {
+                        return TeamService.loadAllTeams();
+                    }
+                }
+            })
+            .state('team.details', {
+                url: '/:id',
+                templateUrl: 'fragments/team-details',
+                controller: 'TeamController as teamCtrl',
+                resolve: {
+                    team: function (TeamService, $stateParams) {
+                        return TeamService.loadTeam($stateParams.id);
                     }
                 }
             });
